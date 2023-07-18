@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server";
 import connect from "@/utils/db";
 import Post from "@/models/Post";
-import mongoose from "mongoose";
 
-export const GET = async (req) => {
+export const GET = async (req, { params }) => {
+  const { id } = params;
   try {
-    mongoose.set("strictQuery", true);
     await connect();
-
-    const posts = await Post.find();
-    return new NextResponse(JSON.stringify(posts), { status: 200 });
+    const post = await Post.findById(id);
+    return new NextResponse(JSON.stringify(post), { status: 200 });
   } catch (error) {
     return new NextResponse("Database error!", error, { status: 500 });
   }
