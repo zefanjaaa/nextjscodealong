@@ -1,6 +1,6 @@
 "use client";
 import styles from "./navbar.module.css";
-
+import DarkModeToggle from "../DarkModeToggle/DarkModeToggle";
 import Link from "next/link";
 import React from "react";
 import { links } from "./data.js";
@@ -12,6 +12,7 @@ const Navbar = () => {
         Truly Juicy
       </Link>
       <div className={styles.links}>
+        <DarkModeToggle />
         {links.map((link) => {
           return (
             <Link href={link.url} className={styles.link} key={link.id}>
