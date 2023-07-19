@@ -4,11 +4,21 @@ import React, { useState } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const Register = () => {
   const [err, setErr] = useState(null);
 
   const router = useRouter();
+  const session = useSession();
+
+  if (session.status === "authenticated") {
+    router.push("/dashboard");
+  }
+
+  if (session.status === "loading") {
+    return <p>loading</p>;
+  }
 
   const onSubmit = async (e) => {
     console.log("the onsubmit function is working");

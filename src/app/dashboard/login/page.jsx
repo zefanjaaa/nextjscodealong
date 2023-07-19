@@ -2,9 +2,20 @@
 import React from "react";
 import styles from "./page.module.css";
 import { getProviders, useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const Login = () => {
+  const session = useSession();
+  const router = useRouter();
+
+  if (session.status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  if (session.status === "authenticated") {
+    router?.push("/dashboard");
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
