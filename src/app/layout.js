@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar/Navbar";
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@/context/ThemeContext";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
 const roboto = Roboto({
   weight: "400",
@@ -19,12 +20,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
         <ThemeProvider>
-          <div className="container">
-            <Navbar />
-            {children}
+          <AuthProvider>
+            <div className="container">
+              <Navbar />
+              {children}
 
-            <Footer />
-          </div>
+              <Footer />
+            </div>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

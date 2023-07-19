@@ -5,7 +5,10 @@ import Link from "next/link";
 import React from "react";
 import { links } from "./data.js";
 
+import { signOut, useSession } from "next-auth/react";
+
 const Navbar = () => {
+  const session = useSession();
   return (
     <nav className={styles.container}>
       <Link href="/" className={styles.logo}>
@@ -20,14 +23,11 @@ const Navbar = () => {
             </Link>
           );
         })}
-        <button
-          className={styles.logout}
-          onClick={() => {
-            console.log("logout");
-          }}
-        >
-          Logout
-        </button>
+        {session.status === "authenticated" && (
+          <button className={styles.logout} onClick={signOut}>
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );
