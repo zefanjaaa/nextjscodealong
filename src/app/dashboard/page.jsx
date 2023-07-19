@@ -38,6 +38,8 @@ const Dashboard = () => {
           username: session.data.user.name,
         }),
       });
+      event.target.reset();
+      mutate();
     } catch (error) {
       console.log("There is an error creating a post", error);
     }
