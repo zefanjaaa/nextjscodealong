@@ -45,6 +45,18 @@ const Dashboard = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`/api/posts/${id}`, {
+        method: "DELETE",
+      });
+      mutate();
+      console.log("Post has been deleted");
+    } catch (error) {
+      console.log("There is an error deleting a post", error);
+    }
+  };
+
   if (session.status === "loading") {
     return <p>loading</p>;
   }
@@ -70,7 +82,12 @@ const Dashboard = () => {
                     />
                   </div>
                   <h2 className={styles.postTitle}>{post.title}</h2>
-                  <span className={styles.delete}>X</span>
+                  <span
+                    className={styles.delete}
+                    onClick={() => handleDelete(post._id)}
+                  >
+                    X
+                  </span>
                 </div>
               ))}
         </div>
